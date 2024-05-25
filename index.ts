@@ -3,7 +3,6 @@ import * as awsx from '@pulumi/awsx';
 import * as pulumi from '@pulumi/pulumi';
 
 const stack = pulumi.getStack();
-const cluster = new aws.ecs.Cluster(`test-cluster-${stack}`, {});
 
 const defaultVpc = new awsx.ec2.DefaultVpc('default-vpc');
 
@@ -26,44 +25,4 @@ new awsx.lb.ApplicationLoadBalancer(`test-lb-${stack}`, {
       }],
     }
   ]
-});
-
-const serviceSg = new aws.ec2.SecurityGroup(`test-service-sg-${stack}`, {
-  ingress: [
-    {
-      protocol: '-1',
-      fromPort: 0,
-      toPort: 0,
-      cidrBlocks: ['0.0.0.0/0'],
-    },
-  ],
-  egress: [
-    {
-      protocol: '-1',
-      fromPort: 0,
-      toPort: 0,
-      cidrBlocks: ['0.0.0.0/0'],
-    }
-  ]
-});
-
-new awsx.ecs.FargateService(`test-server-service-${stack}`, {
-  cluster: cluster.arn,
-  networkConfiguration: {
-    assignPublicIp: true,
-    securityGroups: [serviceSg.id],
-    subnets: defaultVpc.publicSubnetIds,
-  },
-  taskDefinitionArgs: {
-    container: {
-      name: 'server',
-      image: 'nginx:stable',
-      cpu: 1024,
-      memory: 4 * 1024,
-      essential: true,
-      portMappings: [
-        { targetGroup: serverTg },
-      ],
-    },
-  },
 });
