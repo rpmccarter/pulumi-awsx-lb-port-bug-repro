@@ -1,0 +1,7 @@
+name: pulumi-awsx-targetgroup-bug-repro
+runtime: nodejs
+description: Attempting to delete an existing target group throws error
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: aws-typescript
