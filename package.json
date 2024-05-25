@@ -1,5 +1,5 @@
 {
-    "name": "pulumi-awsx-targetgroup-bug-repro",
+    "name": "pulumi-awsx-lb-port-bug-repro",
     "main": "index.ts",
     "devDependencies": {
         "@types/node": "^18",

@@ -1,4 +1,4 @@
-name: pulumi-awsx-targetgroup-bug-repro
+name: pulumi-awsx-lb-port-bug-repro
 runtime: nodejs
 description: Attempting to delete an existing target group throws error
 config:
